@@ -1,0 +1,25 @@
+version: '3'
+services:
+  django:
+    build: ./backend/django
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/django:/app
+    networks:
+      - app-network
+    environment:
+      - DEBUG=True
+
+  spring:
+    build: ./backend/spring
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,13 @@
+{
+  "name": "nuxt-app",
+  "version": "1.0.0",
+  "description": "Przykładowa aplikacja Nuxt3",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "start": "nuxt start"
+  },
+  "dependencies": {
+    "nuxt": "^3.7.0"
+  }
+}
