@@ -1,0 +1,47 @@
+version: '3'
+services:
+  django:
+    build: ./backend/django
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/django:/app
+    networks:
+      - app-network
+    environment:
+      - DEBUG=True
+
+  spring:
+    build: ./backend/spring
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  nuxt:
+    build: ./frontend/nuxt
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./frontend/nuxt:/app
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+
+  next:
+    build: ./frontend/next
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/next:/app
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+
+networks:
+  app-network:
+    driver: bridge
