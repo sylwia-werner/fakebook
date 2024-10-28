@@ -1,0 +1,27 @@
+version: '3'
+services:
+  nuxt:
+    build: ./frontend/nuxt
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./frontend/nuxt:/app
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+
+  next:
+    build: ./frontend/next
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/next:/app
+    networks:
+      - app-network
+    environment:
+      - NODE_ENV=development
+
+networks:
+  app-network:
+    driver: bridge
