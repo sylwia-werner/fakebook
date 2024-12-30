@@ -13,6 +13,17 @@ DEBUG = True
 # Allowed hosts (adjust for production)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# endpointy ktore beda pomijane przez middleware - 
+SKIP_AUTHENTICATION_PATHS = [
+    '/api/simulate-login/',
+]
+# adres api do weryfikacji tokena - endpoint SPRINGA
+SPRING_API_VERIFY_URL = "http://spring:8080/api/verify-token/" # spring/flask
+
+# parametry dla jwt - kodowanie
+JWT_SECRET_KEY = "tajny_kod_dzilimy_go_z_api_Spring" #uzywany do symulacji logowania
+JWT_ALGORITHM= "HS256"
+
 # Installed apps (add your custom apps here)
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -21,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'api'
     # Add your apps here
 ]
 
@@ -33,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middleware.jwt_authentication.JWTAuthenticationMiddleware'
 ]
 
 # Root URL configuration
