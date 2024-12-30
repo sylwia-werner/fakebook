@@ -20,6 +20,15 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
 
+# test na flasku
+#  flask:
+#    build:
+#      context: ../flask_docker
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - app-network
+
 networks:
   app-network:
     driver: bridge
