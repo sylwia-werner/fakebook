@@ -11,38 +11,35 @@ class BaseAuthenticationMiddleware(AuthenticationInterface):
         self.get_response = get_response
 
     def __call__(self, request):
-        # spr. czy request ma byc przetwrzany
         if self.should_skip(request):
             return self.get_response(request)
 
-        #pobierz token z requestu
         token = self.get_token_from_request(request)
         if not token:
             return JsonResponse({'error': 'Token not provided'}, status=401)
         
-        # weryfikajca tokenu + pobranie hasha user id
-        token_with_user_id = self.forward_token_to_api(token)
+        response_from_api = self.forward_token_to_api(token)
 
-        if not token_with_user_id:
-            return JsonResponse({'error': 'Invalid response from Spring API'}, status=502) #czy moze inny kod
-        
-        #jesli to nie token a jsonresp=api spring zwrocil blad
-        if isinstance(token_with_user_id, JsonResponse):
-            return token_with_user_id
+        if response_from_api[1] == 201:
+            return JsonResponse({'newToken': response_from_api[0]}, status=201)
 
+        token_with_user_uuid = response_from_api[0]
+
+        if not token_with_user_uuid:
+            return JsonResponse({'error': 'Invalid response from Spring API'}, status=403)
+
+        user_uuid = ""
         try:              
-            user_id = self.decode_token(token_with_user_id)
-            if user_id is None:
+            user_uuid = self.decode_token(token_with_user_uuid)
+            if user_uuid is None:
                 return JsonResponse({'error':'Unauthorized'}, status=401)
         except ValueError as e:
-            return JsonResponse({'error':str(e)}, status=400)
+            return JsonResponse({'error': str(e)}, status=400)
         
-        #dodaj dane usera do requesta
-        request.user_id = user_id
+        request.user_uuid = user_uuid
 
-        print(f"Odszyfrowany user_id: {user_id}")  # spr id po odszyfr.
+        print(f"user_uuid: {user_uuid}")
 
-        # kontynuacja przetwarzania - w request znajduje się user_id
         return self.get_response(request)
 
 

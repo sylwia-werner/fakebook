@@ -1,0 +1,1 @@
+INSERT INTO member (`uuid`, `login`, `password`) VALUES ('7dc419bb-d2d3-4c5a-997b-85416cf0b3ff', 'test1', '5a105e8b9d40e1329780d62ea2265d8a')

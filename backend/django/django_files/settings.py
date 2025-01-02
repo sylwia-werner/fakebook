@@ -1,3 +1,5 @@
+import sentry_sdk
+
 import os
 from pathlib import Path
 
@@ -15,10 +17,13 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # endpointy ktore beda pomijane przez middleware - 
 SKIP_AUTHENTICATION_PATHS = [
-    '/api/simulate-login/',
+    '/api/login/',
+    '/api/register/',
 ]
-# adres api do weryfikacji tokena - endpoint SPRINGA
-SPRING_API_VERIFY_URL = "http://spring:8080/api/verify-token/" # spring/flask
+
+SPRING_API_URL = "http://spring:8080/api/v1/users"
+SPRING_API_VERIFY_URL = SPRING_API_URL + "/check-token"
+SPRING_API_LOGIN_URL = SPRING_API_URL + "/login"
 
 # parametry dla jwt - kodowanie
 JWT_SECRET_KEY = "tajny_kod_dzilimy_go_z_api_Spring" #uzywany do symulacji logowania
@@ -109,3 +114,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+sentry_sdk.init(
+    dsn="https://962453e19ffa903e041fb8642f558e72@o4508576559333376.ingest.de.sentry.io/4508576562413648",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    _experiments={
+        # Set continuous_profiling_auto_start to True
+        # to automatically start the profiler on when
+        # possible.
+        "continuous_profiling_auto_start": True,
+    },
+)
