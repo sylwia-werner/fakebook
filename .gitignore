@@ -24,3 +24,5 @@ staticfiles/
 __dockerfile_cache/
 
 .idea/
+
+backend/spring/target/
