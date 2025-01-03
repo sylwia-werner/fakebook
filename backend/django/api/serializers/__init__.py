@@ -1,1 +1,2 @@
 from .note_serializer import NoteSerializer
+from .user_profile_serializer import UserProfileSerializer

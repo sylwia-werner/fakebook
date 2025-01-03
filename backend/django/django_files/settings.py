@@ -24,6 +24,7 @@ SKIP_AUTHENTICATION_PATHS = [
 SPRING_API_URL = "http://spring:8080/api/v1/users"
 SPRING_API_VERIFY_URL = SPRING_API_URL + "/check-token"
 SPRING_API_LOGIN_URL = SPRING_API_URL + "/login"
+SPRING_API_REGISTER_URL = SPRING_API_URL + "/register"
 
 # parametry dla jwt - kodowanie
 JWT_SECRET_KEY = "tajny_kod_dzilimy_go_z_api_Spring" #uzywany do symulacji logowania
