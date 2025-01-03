@@ -9,7 +9,7 @@ public interface IUserService {
     void setJwtService(JWTUtilsService jwtUtils);
     boolean isUserExisting(String uuid);
     ResponseEntity<String> login(UserRequestDto user);
-    ResponseEntity<Boolean> register(UserRequestDto user);
+    ResponseEntity<String> register(UserRequestDto user);
     ResponseEntity<String> generateTokenForUuid(String uuid);
     ResponseEntity<String> checkToken(String token);
 }

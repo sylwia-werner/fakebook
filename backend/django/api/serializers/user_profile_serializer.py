@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models.user_profile import UserProfile
+from ..models import UserProfile
 
 class UserProfileSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField()

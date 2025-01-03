@@ -28,20 +28,17 @@ def login(request):
     if response.status_code == 201:
         token = response.text
         user_uuid = decode_token(token)
-        response = JsonResponse({"user_uuid": user_uuid})
         response['Authorization'] = 'Bearer ' + str(token)
 
         if user_uuid:
             
-            user_profile, created = UserProfile.objects.get_or_create(uuid=user_uuid)
+            user_profile = UserProfile.objects.get(uuid=user_uuid)
+            response = JsonResponse(user_profile)
 
             user_profile.last_login = now()
             user_profile.save(update_fields=['last_login'])
 
-            if created:
-                print(f"nowy uzytkownik {user_uuid}", flush=True)
-            else:
-                print(f"uzytkownik istnieje {user_uuid}", flush=True)
+        print(f"uzytkownik istnieje {user_uuid}", flush=True)
 
         return response
     else:
@@ -63,7 +60,12 @@ def register(request):
         )
 
         if response.status_code == 201:
-            
-            return JsonResponse({"message": "User registered successfully"}, status=201)
+            userprofile_data = {
+                "first_name": request.data.get("first_name"),
+                "last_name": request.data.get("last_name"),
+                "email": request.data.get("email")
+            }
+            user_profile = UserProfile.objects.create(uuid=decode_token(response.text), first_name=userprofile_data["first_name"], last_name=userprofile_data["last_name"], email=userprofile_data["email"])
+            return JsonResponse(UserProfileSerializer(user_profile).data, safe=False, status=201)
         else:
             return JsonResponse({"error": "Registration failed"}, status=response.status_code)
