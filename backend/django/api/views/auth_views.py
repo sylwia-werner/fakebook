@@ -27,18 +27,21 @@ def login(request):
     
     if response.status_code == 201:
         token = response.text
-        user_uuid = decode_token(token)
-        response['Authorization'] = 'Bearer ' + str(token)
+        user_uuid = decode_token(token)        
 
         if user_uuid:
             
             user_profile = UserProfile.objects.get(uuid=user_uuid)
-            response = JsonResponse(user_profile)
+
+            serializer = UserProfileSerializer(user_profile)
+            response = JsonResponse(serializer.data)
+
+            response['Authorization'] = 'Bearer ' + str(token)
 
             user_profile.last_login = now()
             user_profile.save(update_fields=['last_login'])
 
-        print(f"uzytkownik istnieje {user_uuid}", flush=True)
+            print(f"uzytkownik istnieje {user_uuid}", flush=True)
 
         return response
     else:
