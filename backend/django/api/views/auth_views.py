@@ -38,8 +38,7 @@ def login(request):
 
             response['Authorization'] = 'Bearer ' + str(token)
 
-            user_profile.last_login = now()
-            user_profile.save(update_fields=['last_login'])
+            user_profile.update_last_login()
 
             print(f"uzytkownik istnieje {user_uuid}", flush=True)
 
