@@ -1,0 +1,26 @@
+.main {
+    width: 96%;
+    max-width: 40rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+
+  .wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 34rem;
+  
+    > svg {
+      color: var(--color-primary);
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 2rem;
+    }
+  }
