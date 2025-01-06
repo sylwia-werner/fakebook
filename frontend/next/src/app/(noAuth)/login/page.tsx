@@ -1,3 +1,5 @@
+import { LoginView } from "@/views/LoginView/LoginView";
+
 export default function Login() {
-	return <div>Login Page</div>;
+	return <LoginView />;
 }

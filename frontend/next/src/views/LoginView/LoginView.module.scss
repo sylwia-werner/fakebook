@@ -1,0 +1,29 @@
+.section {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+  border-radius: 0.5rem;
+  color:  var(--color-text);
+  background-color: var(--color-bg-secondary);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+}
+
+.input {
+  padding: 0.5rem 1rem;
+
+}
