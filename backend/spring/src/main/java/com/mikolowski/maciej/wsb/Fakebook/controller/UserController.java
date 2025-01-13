@@ -34,17 +34,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Boolean> register(@RequestBody @Valid UserRegisterDto user) {
+    public ResponseEntity<String> register(@RequestBody @Valid UserRegisterDto user) {
         return userService.register(user);
     }
 
     @GetMapping("/check-token")
     public ResponseEntity<String> checkToken(@RequestHeader("Authorization") String bearerToken) {
-        try {
-            throw new Exception("This is a test.");
-        } catch (Exception e) {
-            Sentry.captureException(e);
-        }
         return userService.checkToken(bearerToken);
     }
 }

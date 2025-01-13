@@ -40,7 +40,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseEntity<Boolean> register(UserRequestDto user) {
+    public ResponseEntity<String> register(UserRequestDto user) {
         UserDto userToSave = new UserDto(user);
         Optional<UserDto> existingUser = userRepository.findFirstByLogin(user.getLogin());
         if (existingUser.isEmpty()) {
@@ -48,12 +48,12 @@ public class UserService implements IUserService {
             userToSave.setPassword(hashedPassword);
             UserDto saved = userRepository.save(userToSave);
             if (StringUtils.isNotEmpty(saved.getUuid())) {
-                return new ResponseEntity<>(Boolean.TRUE, HttpStatus.CREATED);
+                return new ResponseEntity<>(jwtUtils.hashUuid(saved.getUuid()), HttpStatus.CREATED);
             } else {
-                return new ResponseEntity<>(Boolean.FALSE, HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
-            return new ResponseEntity<>(Boolean.FALSE, HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("", HttpStatus.FORBIDDEN);
         }
     }
 
