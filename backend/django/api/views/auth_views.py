@@ -31,7 +31,10 @@ def login(request):
 
         if user_uuid:
             
-            user_profile = UserProfile.objects.get(uuid=user_uuid)
+            try:
+                user_profile = UserProfile.objects.get(uuid=user_uuid)
+            except UserProfile.DoesNotExist:
+                return JsonResponse({'error': 'User does not exist in Django'}, status=404)
 
             serializer = UserProfileSerializer(user_profile)
             response = JsonResponse(serializer.data)
@@ -39,8 +42,6 @@ def login(request):
             response['Authorization'] = 'Bearer ' + str(token)
 
             user_profile.update_last_login()
-
-            print(f"uzytkownik istnieje {user_uuid}", flush=True)
 
         return response
     else:
