@@ -5,6 +5,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import requests
 from django.conf import settings
+from ..models import UserProfile
+from ..serializers import UserProfileSerializer
+from django.utils.timezone import now
 
 def decode_token(token):
     decoded = jwt.decode(token, key=getattr(settings, "JWT_SECRET_KEY", None), algorithms=[getattr(settings, "JWT_ALGORITHM", "HS256")], verify=False, options={'verify_signature': False})
@@ -24,9 +27,48 @@ def login(request):
     
     if response.status_code == 201:
         token = response.text
-        decoded = decode_token(token)
-        response = JsonResponse({"user_uuid": decoded})
-        response['Authorization'] = 'Bearer ' + str(token)
+        user_uuid = decode_token(token)        
+
+        if user_uuid:
+            
+            try:
+                user_profile = UserProfile.objects.get(uuid=user_uuid)
+            except UserProfile.DoesNotExist:
+                return JsonResponse({'error': 'User does not exist in Django'}, status=404)
+
+            serializer = UserProfileSerializer(user_profile)
+            response = JsonResponse(serializer.data)
+
+            response['Authorization'] = 'Bearer ' + str(token)
+
+            user_profile.update_last_login()
+
         return response
     else:
         return JsonResponse({'error': 'Unauthorized'}, status=401)
+    
+@csrf_exempt
+@api_view(['POST'])
+def register(request):
+
+        user_data = {
+            "login": request.data.get("login"),
+            "password": request.data.get("password"),
+            "password2": request.data.get("password2")
+        }
+
+        response = requests.post(
+            getattr(settings, 'SPRING_API_REGISTER_URL', None),
+            json=user_data
+        )
+
+        if response.status_code == 201:
+            userprofile_data = {
+                "first_name": request.data.get("first_name"),
+                "last_name": request.data.get("last_name"),
+                "email": request.data.get("email")
+            }
+            user_profile = UserProfile.objects.create(uuid=decode_token(response.text), first_name=userprofile_data["first_name"], last_name=userprofile_data["last_name"], email=userprofile_data["email"])
+            return JsonResponse(UserProfileSerializer(user_profile).data, safe=False, status=201)
+        else:
+            return JsonResponse({"error": "Registration failed"}, status=response.status_code)
