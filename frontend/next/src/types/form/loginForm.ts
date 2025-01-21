@@ -1,9 +1,9 @@
 type FormFieldType = {
-	value: string;
-	error: string;
+    value: string;
+    error: string;
 };
 
 export type LoginFormType = {
-	email: FormFieldType;
-	password: FormFieldType;
+    email: FormFieldType;
+    password: FormFieldType;
 };

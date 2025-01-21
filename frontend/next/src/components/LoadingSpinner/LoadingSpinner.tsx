@@ -1,5 +1,5 @@
-import $ from "./LoadingSpinner.module.scss";
+import $ from './LoadingSpinner.module.scss';
 
 export const LoadingSpinner = () => {
-	return <div className={$.loader} />;
+    return <div className={$.loader} />;
 };
