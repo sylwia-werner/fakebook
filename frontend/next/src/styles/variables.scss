@@ -1,16 +1,20 @@
 :root {
-    --color-primary: #0866FF;
-    --color-bg: #F2F4F7;
-    --color-bg-secondary: #FFFFFF;
+    --color-primary: #0866ff;
+    --color-bg: #f2f4f7;
+    --color-bg-secondary: #ffffff;
     --color-text-primary: #080809;
     --color-text-secondary: #65686c;
-    --color-input-bg: #F0F2F5;
+    --color-text-tertiary: #a1a1a1;
+    --color-input-bg: #f0f2f5;
 
-    --color-btn-primary: #0866FF;
-    --color-btn-secondary: #e2e5e9;
-    --color-btn-tertiary: #DFE9F2;
+    --color-error: #f82323;
 
-    --box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    --color-btn-primary: #0866ff;
+    --color-btn-secondary: #9e9e9e;
+    --color-btn-tertiary: #dfe9f2;
+    --color-btn-register: rgb(68, 192, 99);
+
+    --box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 
     // TODO: Add variables for z-index
 }
