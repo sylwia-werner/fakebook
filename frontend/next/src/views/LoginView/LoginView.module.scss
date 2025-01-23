@@ -30,6 +30,10 @@
 
 }
 
+.errorMessage {
+    color: var(--color-error);
+}
+
 .inputs {
     display: flex;
     flex-direction: column;

@@ -4,6 +4,6 @@ type FormFieldType = {
 };
 
 export type LoginFormType = {
-    email: FormFieldType;
+    login: FormFieldType;
     password: FormFieldType;
 };
