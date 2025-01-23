@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import notes_list, login, create_note, note_detail, register, users_list, user_profile_detail
-from .views.chat_views import ChatView
+from .views import create_chat, delete_chat, update_chat_name, add_users_to_chat, remove_users_from_chat, send_message, get_messages
 from django.urls import path
 
 urlpatterns = [
@@ -11,7 +11,12 @@ urlpatterns = [
     path('notes/', notes_list, name='notes_list'),
     path('notes/create/', create_note, name='create_note'),
     path('notes/<int:pk>/', note_detail, name='note_detail'),
-    path('chats/', ChatView.as_view(), name='chat_list_create'),
-    path('chats/<int:chat_id>/', ChatView.as_view(), name='chat_detail'),
+    path('chat/create/', create_chat, name='create_chat'),
+    path('chat/<int:chat_id>/delete/', delete_chat, name='delete_chat'),
+    path('chat/<int:chat_id>/update-name/', update_chat_name, name='update_chat_name'),
+    path('chat/<int:chat_id>/add-users/', add_users_to_chat, name='add_users_to_chat'),
+    path('chat/<int:chat_id>/remove-users/', remove_users_from_chat, name='remove_users_from_chat'),
+    path('chat/<int:chat_id>/send-message/', send_message, name='send_message'),
+    path('chat/<int:chat_id>/get-messages/', get_messages, name='get_messages'),
 ]
 
