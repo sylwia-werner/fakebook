@@ -21,9 +21,5 @@ export const NoAuthGuard = ({ children }: { children: React.ReactNode }) => {
         }
     }, [isHydrated, token, router]);
 
-    if (!isHydrated || !token || isTokenExpired(token)) {
-        return null;
-    }
-
     return <>{children}</>;
 };

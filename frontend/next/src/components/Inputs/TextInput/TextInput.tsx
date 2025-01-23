@@ -38,6 +38,8 @@ export const TextInput = ({
                     htmlFor={id}
                 >
                     {label}
+
+                    {required && <span className={$.required}>*</span>}
                 </label>
             )}
 

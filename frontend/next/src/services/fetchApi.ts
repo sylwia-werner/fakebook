@@ -15,11 +15,17 @@ type FetchApiType = {
     path: ValidPath;
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     config?: Config;
+    checkToken: boolean;
 };
-export const fetchApi = async <T>({ path, method, config }: FetchApiType) => {
+export const fetchApi = async <T>({
+    path,
+    method,
+    config,
+    checkToken,
+}: FetchApiType) => {
     const { ...init } = config;
 
-    checkTokenBeforeRequest();
+    if (checkToken) checkTokenBeforeRequest();
 
     if (method === 'GET' && init.body) {
         throw new Error('GET requests cannot have a body');

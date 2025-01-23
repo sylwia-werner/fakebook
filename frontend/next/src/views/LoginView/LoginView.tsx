@@ -5,10 +5,10 @@ import $ from './LoginView.module.scss';
 import { LoadingSpinner } from '@/components/LoadingSpinner/LoadingSpinner';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useState } from 'react';
-import { LoginFormType } from '@/types/form/loginForm';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { LoginFormType } from '@/types/form/auth';
 import { loginSchema } from '@/validations/auth';
-import { useLoginAPI } from '@/hooks/auth/login/useLoginAPI';
+import { useLoginAPI } from '@/hooks/auth/useLoginAPI';
 
 export const LoginView = () => {
     const [formState, setFormState] = useState<LoginFormType>({
@@ -33,7 +33,7 @@ export const LoginView = () => {
         }));
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
         setFormState(prev => ({
@@ -49,7 +49,7 @@ export const LoginView = () => {
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setIsFormSubmitted(true);
 
@@ -94,6 +94,7 @@ export const LoginView = () => {
                         onChange={handleInputChange}
                         errorMessage={formState.login.error}
                         withAutocomplete
+                        required
                     />
 
                     <TextInput
@@ -104,6 +105,7 @@ export const LoginView = () => {
                         value={formState.password.value}
                         onChange={handleInputChange}
                         errorMessage={formState.password.error}
+                        required
                     />
                 </div>
 

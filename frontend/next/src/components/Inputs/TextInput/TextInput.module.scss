@@ -45,3 +45,8 @@
 .isDisabled {
     opacity: 0.5;
 }
+
+.required {
+    color: var(--color-error);
+    margin-left: 0.25rem;
+}

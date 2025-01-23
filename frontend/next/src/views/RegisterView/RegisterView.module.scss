@@ -1,0 +1,55 @@
+.section {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 2rem;
+    border-radius: 0.5rem;
+    color: var(--color-text);
+    background-color: var(--color-bg-secondary);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+
+    @media screen and (min-width: 768px) {
+        padding: 2rem;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.hr {
+    display: block;
+    height: 1px;
+    width: 100%;
+    border: 0;
+    background-color: var(--color-text-tertiary);
+
+}
+
+.errorMessage {
+    color: var(--color-error);
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.button {
+    border-radius: 100vmax;
+
+}
+
+.registerButton {
+    background-color: var(--color-btn-primary);
+
+}
+
+.loginButton {
+    background-color: var(--color-btn-register);
+}

@@ -22,9 +22,5 @@ export const AuthGuard = ({ children }: PropsWithChildren) => {
         }
     }, [isHydrated, token, router, logout]);
 
-    if (!isHydrated || !token || isTokenExpired(token)) {
-        return null;
-    }
-
     return <>{children}</>;
 };
