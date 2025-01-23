@@ -3,4 +3,4 @@ djangorestframework
 PyJWT
 requests
 sentry_sdk
-
+django-cors-headers==4.3.1
