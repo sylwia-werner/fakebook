@@ -19,7 +19,7 @@ export const signIn = async ({
 
     return {
         user: transformLoginData(data),
-        headers,
+        headers: headers,
     };
 };
 

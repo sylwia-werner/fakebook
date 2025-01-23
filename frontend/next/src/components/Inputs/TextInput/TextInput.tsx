@@ -12,6 +12,7 @@ interface TextInputProps {
     placeholder?: string;
     required?: boolean;
     disabled?: boolean;
+    withAutocomplete?: boolean;
 }
 
 export const TextInput = ({
@@ -24,6 +25,7 @@ export const TextInput = ({
     type = 'text',
     placeholder,
     onChange,
+    withAutocomplete = false,
     ...props
 }: TextInputProps) => {
     const id = useId();
@@ -54,6 +56,7 @@ export const TextInput = ({
                     disabled && $.isDisabled,
                 )}
                 {...props}
+                autoComplete={withAutocomplete ? 'on' : 'off'}
             />
 
             {errorMessage && (

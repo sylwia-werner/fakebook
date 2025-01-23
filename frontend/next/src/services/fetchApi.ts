@@ -1,6 +1,7 @@
 import { CONFIG_HAS_API_TRAILING_SLASH, CONFIG_URL_API } from '@/config';
 import { FetchError } from './types';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { checkTokenBeforeRequest } from './checkAuth';
 
 type ValidPath = `/${string}`;
 
@@ -17,6 +18,9 @@ type FetchApiType = {
 };
 export const fetchApi = async <T>({ path, method, config }: FetchApiType) => {
     const { ...init } = config;
+
+    checkTokenBeforeRequest();
+
     if (method === 'GET' && init.body) {
         throw new Error('GET requests cannot have a body');
     }
@@ -31,6 +35,7 @@ export const fetchApi = async <T>({ path, method, config }: FetchApiType) => {
         ...init,
         headers: {
             'Content-Type': 'application/json',
+            Accept: 'application/json',
             ...(token && { Authorization: `Bearer ${token}` }),
         },
     });
@@ -44,7 +49,6 @@ export const fetchApi = async <T>({ path, method, config }: FetchApiType) => {
     if (config?.signal && config.signal.aborted) {
         throw new Error('Aborted');
     }
-
     return {
         data: data as T,
         headers: response.headers,

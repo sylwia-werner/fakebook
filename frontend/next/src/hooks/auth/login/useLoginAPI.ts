@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FetchError } from '@/services/types';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { signIn } from '@/services/api/auth';
+import { useRouter } from 'next/navigation';
 
 export type LoginApiType = {
     login: string;
@@ -11,8 +12,8 @@ export type LoginApiType = {
 export const useLoginAPI = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [userData, setUserData] = useState(null);
     const { setUser, setToken } = useAuthStore();
+    const router = useRouter();
 
     const login = async ({ login, password }: LoginApiType) => {
         setIsLoading(true);
@@ -24,8 +25,10 @@ export const useLoginAPI = () => {
             const authToken = headers.get('Authorization');
 
             if (authToken) {
-                setToken(authToken);
+                const token = authToken.split(' ')[1];
+                setToken(token);
                 setUser(user);
+                router.push('/');
             }
         } catch (error) {
             if (error instanceof FetchError && error.status === 401) {
@@ -41,6 +44,5 @@ export const useLoginAPI = () => {
         login,
         isLoading,
         error,
-        userData,
     };
 };

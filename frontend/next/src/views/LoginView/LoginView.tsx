@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { LoginFormType } from '@/types/form/loginForm';
 import { loginSchema } from '@/validations/auth';
-import { useLoginAPI } from '@/services/auth/login/useLoginAPI';
+import { useLoginAPI } from '@/hooks/auth/login/useLoginAPI';
 
 export const LoginView = () => {
     const [formState, setFormState] = useState<LoginFormType>({
@@ -16,8 +16,7 @@ export const LoginView = () => {
         password: { value: '', error: '' },
     });
 
-    const { login, userData, isLoading, error } = useLoginAPI();
-
+    const { login, isLoading, error } = useLoginAPI();
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
     const validateField = (name: keyof LoginFormType, value: string) => {
@@ -74,16 +73,13 @@ export const LoginView = () => {
             setFormState(newState);
             return;
         }
-        try {
-            const response = await login({
-                login: formData.login,
-                password: formData.password,
-            });
-        } catch (error) {
-            throw error;
-        }
+
+        await login({
+            login: formData.login,
+            password: formData.password,
+        });
     };
-    // http://localhost:8000/api/login/
+
     return (
         <section className={$.section}>
             <h1>Login</h1>
