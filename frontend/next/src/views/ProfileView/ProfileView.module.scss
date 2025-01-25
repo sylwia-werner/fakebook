@@ -1,0 +1,77 @@
+.profileContainer {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.coverPhoto {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #1877f2, #4a90e2);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.profileImageWrapper {
+    position: absolute;
+    bottom: -50px;
+    border: 4px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileContent {
+    margin-top: 60px;
+    padding: 16px;
+    text-align: center;
+    background-color: white;
+    width: 100%;
+    border-top: 1px solid #d3d3d3;
+}
+
+.profileName {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.email {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.details {
+    margin-top: 12px;
+    text-align: left;
+    padding: 0 16px;
+
+    p {
+        font-size: 14px;
+        margin: 8px 0;
+
+        strong {
+            color: #555;
+        }
+    }
+}
