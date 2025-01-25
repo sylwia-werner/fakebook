@@ -1,0 +1,28 @@
+// https://nuxt.com/docs/guide/concepts/typescript
+{
+    "extends": "./.nuxt/tsconfig.json",
+    "compilerOptions": {
+        "target": "ES2018",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "incremental": true,
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        ".nuxt/types/**/*.ts"
+    ],
+    "exclude": ["node_modules"]
+}

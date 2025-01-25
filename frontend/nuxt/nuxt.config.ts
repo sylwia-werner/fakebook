@@ -1,4 +1,10 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: true, // Server-Side Rendering
-  target: 'server', // Server deployment
+    srcDir: 'src',
+    compatibilityDate: '2024-11-01',
+    devtools: { enabled: true },
+    modules: ['@nuxt/eslint'],
+    devServer: {
+        port: 3001,
+    },
 });

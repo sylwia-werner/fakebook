@@ -1,13 +1,31 @@
 {
-  "name": "nuxt-app",
-  "version": "1.0.0",
-  "description": "Przykładowa aplikacja Nuxt3",
-  "scripts": {
-    "dev": "nuxt dev",
-    "build": "nuxt build",
-    "start": "nuxt start"
-  },
-  "dependencies": {
-    "nuxt": "^3.7.0"
-  }
+    "name": "nuxt-app",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "nuxt build",
+        "dev": "nuxt dev",
+        "generate": "nuxt generate",
+        "preview": "nuxt preview",
+        "postinstall": "nuxt prepare",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "prettier": "prettier --write .",
+        "format": "npm-run-all -p lint:fix prettier"
+    },
+    "dependencies": {
+        "nuxt": "^3.15.3",
+        "vue": "latest",
+        "vue-router": "latest"
+    },
+    "devDependencies": {
+        "@nuxt/eslint": "^0.7.5",
+        "eslint": "^9.19.0",
+        "eslint-plugin-prettier": "^5.2.3",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^3.4.2",
+        "prettier-plugin-organize-imports": "^4.1.0",
+        "typescript": "^5.7.3",
+        "vue-tsc": "^2.2.0"
+    }
 }
