@@ -13,7 +13,7 @@ export const signIn = async ({
 }: LoginRequestData): Promise<{ user: User; headers: Headers }> => {
     const { data, headers } = await fetchApi<LoginResponseDTO>({
         checkToken: false,
-        path: '/login',
+        path: '/login/',
         method: 'POST',
         config: { body: JSON.stringify({ login, password }) },
     });
@@ -51,7 +51,7 @@ export const signUp = async ({
     };
     const { data } = await fetchApi<RegisterResponseDTO>({
         checkToken: false,
-        path: '/register',
+        path: '/register/',
         method: 'POST',
         config: {
             body: JSON.stringify({ ...requestBody }),

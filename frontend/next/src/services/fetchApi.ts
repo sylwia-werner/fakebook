@@ -34,8 +34,7 @@ export const fetchApi = async <T>({
 
     const token = getToken();
 
-    const url =
-        CONFIG_URL_API + path + (CONFIG_HAS_API_TRAILING_SLASH ? '/' : '');
+    const url = CONFIG_URL_API + path;
 
     const response: Response = await fetch(url, {
         ...init,
